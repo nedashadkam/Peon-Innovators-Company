@@ -1,0 +1,30 @@
+.common-styles {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 30px;
+    bottom: 30px;
+    padding: 5px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+    background-color: teal;
+    cursor: pointer;
+    transition: 0.5s ease;
+
+    &.de-active {
+        opacity: 0;
+    }
+
+    &.active {
+        opacity: 1;
+    }
+    
+}
+
+i {
+    padding: 0;
+    color: white;
+    font-size: 25px;
+}
