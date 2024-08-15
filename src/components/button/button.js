@@ -5,7 +5,7 @@ import './button.scss';
 const Button = (props) => {
     return (
         <button
-            className='btn-style'
+            className={props.btnStyle}
             onClick={props.clicked}
         >
             {props.children}

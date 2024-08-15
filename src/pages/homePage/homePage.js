@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './homePage.scss';
 import WasteItems from '../../components/wasteItems/wasteItems';
 import BackToTop from '../../components/backToTop/backToTop';
 import Button from '../../components/button/button';
-import homePageImage from '../../assets/images/home-page-image.jpg'
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import Alert from '../../alert/alert';
 
-const HomePage = () => {
+const HomePage = (props) => {
+
+    const navigate = useNavigate();
+
+    const [showMessage, setShowMessage] = useState(false)
+
+    function toContinue() {
+        if (props.wastes?.length > 0) {
+            navigate('/wasteList')
+        }else{
+            setShowMessage(true);
+            setTimeout(() => setShowMessage(false), 2000)
+        }
+    }
+
     return (
         <>
-        <main>
-                <img className='home-page-image' src={homePageImage} alt='home-page-image' />
-                <div className='container'> 
+            <main className='home-page-style'>
+                <div className='container'>
                     <div>
                         <span className='line'></span>
                         <label className='label'>نوع پسماند را انتخاب کنید</label>
@@ -18,11 +33,20 @@ const HomePage = () => {
                     </div>
                     <WasteItems />
                 </div>
-                <Button>ادامه</Button>
+                <Button btnStyle='btn-style' clicked={toContinue}>ادامه</Button>
                 <BackToTop />
-        </main>
+                {
+                    showMessage ? <Alert alertStyle='message' iconName="warning" text='لطفا یک آیتم را انتخاب کنید'/>  : null
+                }
+            </main>
         </>
     )
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+    return {
+        wastes: state.selectedWaste
+    }
+}
+
+export default connect(mapStateToProps)(HomePage);
