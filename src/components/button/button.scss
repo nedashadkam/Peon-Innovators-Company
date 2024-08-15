@@ -6,4 +6,15 @@
     color: #e4e4e5;
     font-size: 18px;
     cursor: pointer;
+    margin: 2rem;
+
+    &.contnue {
+        background-color: teal;
+        border: 1px solid teal;
+    }
+
+    &.save {
+        background-color: #05af21;
+        border: 1px solid #05af21;
+    }
 }

@@ -3,7 +3,19 @@
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 20px;
+
+    .waste-item-box {
+        width: 16%;
+        height: auto;
+        margin: 30px 20px;
+    }
+}
+
+@media all and (max-width : 1000px) {
+    .waste-item-box {
+        width: 20% !important; 
+    }
 }

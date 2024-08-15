@@ -5,20 +5,19 @@ import BackToTop from '../../components/backToTop/backToTop';
 import Button from '../../components/button/button';
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import Alert from '../../alert/alert';
+import Alert from '../../components/alert/alert';
 
 const HomePage = (props) => {
 
     const navigate = useNavigate();
-
-    const [showMessage, setShowMessage] = useState(false)
+    const [showMessage, setShowMessage] = useState(null)
 
     function toContinue() {
         if (props.wastes?.length > 0) {
             navigate('/wasteList')
-        }else{
-            setShowMessage(true);
-            setTimeout(() => setShowMessage(false), 2000)
+        } else {
+            setShowMessage({ text: 'لطفا حداقل یک آیتم را انتخاب کنید', iconName: 'warning', styleClass: 'red' });
+            setTimeout(() => setShowMessage(null), 2000)
         }
     }
 
@@ -27,16 +26,14 @@ const HomePage = (props) => {
             <main className='home-page-style'>
                 <div className='container'>
                     <div>
-                        <span className='line'></span>
                         <label className='label'>نوع پسماند را انتخاب کنید</label>
-                        <span className='line'></span>
                     </div>
                     <WasteItems />
                 </div>
-                <Button btnStyle='btn-style' clicked={toContinue}>ادامه</Button>
+                <Button btnStyle='btn-style contnue' clicked={toContinue}>ادامه</Button>
                 <BackToTop />
                 {
-                    showMessage ? <Alert alertStyle='message' iconName="warning" text='لطفا یک آیتم را انتخاب کنید'/>  : null
+                    showMessage ? <Alert alertStyle={`message ${showMessage.styleClass}`} iconName={showMessage.iconName} text={showMessage.text} /> : null
                 }
             </main>
         </>

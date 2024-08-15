@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import './wasteList.scss';
 import { connect } from "react-redux";
 import { removeWaste } from '../../stateManagement/actions/selectedWasteActions';
-import {saveTheFinalWasteList} from '../../stateManagement/actions/finalWasteListAction';
-import Alert from "../../alert/alert";
+import { saveTheFinalWasteList } from '../../stateManagement/actions/finalWasteListAction';
+import Alert from "../../components/alert/alert";
 import Button from '../../components/button/button';
 import BackToTop from '../../components/backToTop/backToTop';
 
@@ -11,13 +11,11 @@ const MIN_WEIGHT = 1.00;
 
 const WasteList = (props) => {
 
-    console.log(props.finalWasteL)
     const changeValue = 0.5
     let [wasteList, setWasteList] = useState(props.wastes);
-    const [showMessage, setShowMessage] = useState(false)
+    const [showMessage, setShowMessage] = useState(null);
 
     function removeItem(id) {
-
         props.removewaste(id)
         wasteList = wasteList.filter((item) => item.id != id);
         setWasteList([...wasteList]);
@@ -25,8 +23,8 @@ const WasteList = (props) => {
     function changeWeight(item, index, value) {
         if (item.weight) {
             if (item.weight === 1 && value < 0) {
-                setShowMessage(true)
-                setTimeout(() => setShowMessage(false), 2000)
+                setShowMessage({ text: 'وزن اقلام نمیتواند کمتر از یک کیلو گرم باشد', iconName: 'warning', styleClass: 'red' })
+                setTimeout(() => setShowMessage(null), 2000)
             } else {
                 item.weight = item.weight + value
             }
@@ -38,15 +36,16 @@ const WasteList = (props) => {
     }
 
     function save() {
-        wasteList = wasteList.map((item) => ({...item , totalPrice : item.weight * item.unitPrice}))
-        props.saveFinalWasteList(wasteList)
+        wasteList = wasteList.map((item) => ({ ...item, totalPrice: item.weight * item.unitPrice }))
+        props.saveFinalWasteList(wasteList);
+        setShowMessage({ text: 'ثبت با موفقیت انجام شد', iconName: 'check', styleClass: 'green' })
+        setTimeout(() => setShowMessage(null), 2000)
     }
+
     return (
         <main className="waste-list-style" >
             <div>
-                <span className='line'></span>
                 <label className='label'>مقدار پسماند را وارد کنید</label>
-                <span className='line'></span>
             </div>
             <div className="waste-list-container">
                 {
@@ -66,12 +65,11 @@ const WasteList = (props) => {
                     })
                 }
             </div>
-            <Button btnStyle='btn-style' clicked={save} >ثبت</Button>
-            {
-                showMessage ? <Alert alertStyle='message' iconName="warning" text="وزن اقلام نباید از 1 کلیو گرم کمتر باشد" />  : null
-            }
+            <Button btnStyle='btn-style save' clicked={save} >ثبت</Button>
             <BackToTop />
-
+            {
+                showMessage ? <Alert alertStyle={`message ${showMessage.styleClass}`} iconName={showMessage.iconName} text={showMessage.text} /> : null
+            }
         </main>
     )
 }
@@ -87,7 +85,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         removewaste: (id) => dispatch(removeWaste(id)),
-        saveFinalWasteList : (item) => dispatch(saveTheFinalWasteList(item))
+        saveFinalWasteList: (item) => dispatch(saveTheFinalWasteList(item))
     }
 }
 

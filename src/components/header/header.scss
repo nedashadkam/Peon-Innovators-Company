@@ -1,9 +1,16 @@
 header {
+    height: 250px;
+    margin-bottom: 2rem;
+
+    // // max-height: 200px;       
+    // background-image:url("../../assets/images/head.jpg") ;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // margin-bottom: 2rem;
     .header-image {
-        width: 50%;
+        width: 100%;
         height: auto;
-        border: 1px solid #e7e6e6;
-        border-radius: 10px;
-        margin: 2rem;
+        max-height: 100%;
+        max-width: 100%;
     }
 }
