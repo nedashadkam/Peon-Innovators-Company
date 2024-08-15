@@ -6,6 +6,7 @@
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 20px;
+    
 
     .waste-item-box {
         width: 16%;
@@ -17,5 +18,11 @@
 @media all and (max-width : 1000px) {
     .waste-item-box {
         width: 20% !important; 
+    }
+}
+
+@media all and (max-width : 660px) {
+    .waste-item-box {
+        width: 30% !important; 
     }
 }

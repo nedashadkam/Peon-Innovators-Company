@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/wasteList' element={<WasteList />} />
-          <Route path='*' element='<h1>404 Not Found</h1>' />
+          <Route path='*' element={<h1> Not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </div>

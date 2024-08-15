@@ -9,7 +9,6 @@ import electronic from '../../assets/images/electronic.png';
 import industrial from '../../assets/images/industrial.png';
 import medical from '../../assets/images/medical.png';
 import plastic from '../../assets/images/plastic.jpeg';
-import image from '../../assets/images/a.png';
 import food from '../../assets/images/food.png';
 
 
